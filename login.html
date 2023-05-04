@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+  </head>
+  <body>
+    <h1>Login Page</h1>
+    <form>
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" required><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+      <input type="button" value="Login" onclick="login()">
+    </form>
+    <script>
+      function login() {
+        // Get the phone number and password inputs
+        var phone = document.getElementById("phone").value;
+        var password = document.getElementById("password").value;
+        // Perform validation
+        if (phone === "" || password === "") {
+          alert("Please enter your phone number and password.");
+        } else {
+          const mobile = phone;
+          const password1 = password;
+          const xhr = new XMLHttpRequest();
+          const url = 'https://service.xiaolu178.cn/index.php/passwordLogin';
+          const params = `mobile=${mobile}&password=${password1}`;
+          xhr.open('POST', url, true);
+          xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+              const response = xhr.responseText;
+              // console.log(response);
+              console.log(JSON.parse(response))
+              if(JSON.parse(response).code === 1){
+                //todo 登录成功后,调用查看用户cookies信息的接口,将token和cookies传到主进程
+                (function(){
+                    const url = 'https://service.xiaolu178.cn/index.php/getCookies';
+                    xhr.open('GET', url, true);
+                    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                    xhr.setRequestHeader('token', JSON.parse(response).data.token);
+                    xhr.onreadystatechange = function() {
+                    if(xhr.readyState === 4 && xhr.status === 200) {
+                      const response = xhr.responseText;
+                      // console.log(response);
+                      console.log(JSON.parse(response))
+                      if(JSON.parse(response).code === 1){
+                        //登录成功后,调用查看用户cookies信息的接口,将token和cookies传到主进程
+                        // window.electronAPI.setToken(JSON.parse(response).data.token)
+                        window.electronAPI.setCookies(JSON.parse(response).data)
+                        window.location.href = "index1.html";
+                      }
+                    }
+                  }
+                  xhr.send(params);
+                })()
+                //把token传递给主进程main.js文件,并保存登录token
+                window.electronAPI.setToken(JSON.parse(response).data.token)
+                // window.location.href = "index1.html";
+              }
+            }
+          }
+          xhr.send(params);
+          // Redirect to the blank page on successful login
+          // window.location.href = "index1.html";
+        }
+      }
+    </script>
+  </body>
+</html>

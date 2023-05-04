@@ -1,0 +1,72 @@
+<!--<!DOCTYPE html>-->
+<!--&lt;!&ndash;    <webview id="foo" src="https://www.github.com/" style="display:flex; width:1000px; height:1000px"></webview>&ndash;&gt;-->
+<!--&lt;!&ndash;    <webview id="foo" src="https://www.baidu.com/" style="display:flex;height:100%;width:100%"></webview>&ndash;&gt;-->
+<!--<webview id="foo" src="https://www.baidu.com/" style="display:inline-flex; width:1000px; height:1000px" partition="electron"></webview>-->
+<!--<script>-->
+<!--  // onload = () => {-->
+<!--  //   const webview = document.querySelector('webview')-->
+<!--  //   const indicator = document.querySelector('.indicator')-->
+<!--  //-->
+<!--  //   const loadstart = () => {-->
+<!--  //     console.log('开始加载')-->
+<!--  //     // indicator.innerText = 'loading...'-->
+<!--  //   }-->
+<!--  //-->
+<!--  //   const loadstop = () => {-->
+<!--  //     console.log('结束加载')-->
+<!--  //     // indicator.innerText = ''-->
+<!--  //   }-->
+<!--  //-->
+<!--  //   webview.addEventListener('did-start-loading', loadstart)-->
+<!--  //   webview.addEventListener('did-stop-loading', loadstop)-->
+<!--  // }-->
+<!--  // const { session } = require('electron')-->
+<!--  // const ses = session.fromPartition("electron")-->
+<!--  // ses.cookies.get({url:'https://www.baidu.com'}).then(function(cookies,error){-->
+<!--  //   console.log(cookies);-->
+<!--  // });-->
+<!--</script>-->
+<webview id="foo" src="https://creator.douyin.com/" style="display:inline-flex; width:1000px; height:500px" partition="electron" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"></webview>
+<!--<webview id="foo1" src="https://creator.douyin.com/" style="display:inline-flex; width:1000px; height:500px" partition="electron1" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"></webview>-->
+<script type="module" src = "test.js"></script>
+<script>
+  onload = function() {
+     var webview1 = document.getElementById("foo");
+     webview1.addEventListener("dom-ready", function(){
+       // console.log('打开开发者工具')
+       webview1.openDevTools() // 这里！ 打开 webview的控制台
+     });
+   }
+</script>
+<!--<script>-->
+<!--  onload = function() {-->
+<!--    var webview = document.getElementById("foo");-->
+<!--    // var indicator = document.querySelector(".indicator");-->
+<!--    var loadstart = function() {-->
+<!--      // indicator.innerText = "loading...";-->
+<!--    }-->
+<!--    var loadstop = function() {-->
+<!--      // indicator.innerText = "";-->
+<!--      //   webview = document.getElementById("foo");-->
+<!--      //   console.log(webview)-->
+<!--      //   //const ses = webview.session.cookies;-->
+<!--      //   var ses = webview.session.fromPartition('persist:github');-->
+<!--      //   ses.get({ url: 'https://www.baidu.com/' })-->
+<!--      //     .then((cookies) => {-->
+<!--      //       console.log(cookies)-->
+<!--      //     }).catch((error) => {-->
+<!--      //       console.log(error)-->
+<!--      //     })-->
+<!--      //   const { session } = require('electron')-->
+<!--      //   const ses = session.fromPartition("electron")-->
+<!--      //   console.log(ses)-->
+<!--      //   ses.cookies.get({url:'https://www.baidu.com/'}).then(function(cookies,error){-->
+<!--      //         console.log(cookies);-->
+<!--      //   })-->
+<!--    }-->
+<!--    webview.addEventListener("did-start-loading", loadstart);-->
+<!--    webview.addEventListener("did-stop-loading", loadstop);-->
+<!--  }-->
+<!--</script>-->
+
+
